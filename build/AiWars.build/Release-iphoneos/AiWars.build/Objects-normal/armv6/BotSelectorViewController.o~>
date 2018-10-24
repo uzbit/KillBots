@@ -1,5 +1,0 @@
-/Users/uzbit/Documents/projects/iPwn/AiWars/trunk/Classes/BotSelectorViewController.m: In function '-[BotSelectorViewController viewDidLoad]':
-/Users/uzbit/Documents/projects/iPwn/AiWars/trunk/Classes/BotSelectorViewController.m:304: warning: 'UIView' may not respond to '-setImage:'
-/Users/uzbit/Documents/projects/iPwn/AiWars/trunk/Classes/BotSelectorViewController.m:304: warning: (Messages without a matching method signature
-/Users/uzbit/Documents/projects/iPwn/AiWars/trunk/Classes/BotSelectorViewController.m:304: warning: will be assumed to return 'id' and accept
-/Users/uzbit/Documents/projects/iPwn/AiWars/trunk/Classes/BotSelectorViewController.m:304: warning: '...' as arguments.)
