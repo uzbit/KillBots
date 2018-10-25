@@ -34,11 +34,17 @@
 	return self;
 }
 
+- (id)copyWithZone:(NSZone*)zone{
+    NSData *buffer;
+    buffer = [NSKeyedArchiver archivedDataWithRootObject:self];
+    Game *copy = [NSKeyedUnarchiver unarchiveObjectWithData: buffer];
+    return copy;
+}
+
 -(void)update
 {
 	if (gameMode == GAME_MODE_BATTLE)
 	{
-		
 		NSMutableArray *bots;
 		float life, totalLife;
 		const int playerCount = [players count];

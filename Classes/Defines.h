@@ -10,7 +10,7 @@
 #import "Sounds.h"
 
 #define LITE		0
-#define TESTING		0
+#define TESTING		1
 #define SIMULATION	0
 
 #define ATOMICITY_RETAIN	(retain)

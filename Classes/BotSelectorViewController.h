@@ -77,6 +77,7 @@ GLuint textureIcy;
 - (IBAction)done:(id)sender;
 - (void)jammerChanged:(id)sender;
 - (void)shieldsChanged:(id)sender;
+- (int)calculateCostForBot:(Bot *)bot;
 - (IBAction)previousBot:(id)sender;
 - (IBAction)nextBot:(id)sender;
 - (IBAction)previousMovement:(id)sender;

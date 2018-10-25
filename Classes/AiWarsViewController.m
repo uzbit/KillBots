@@ -37,6 +37,7 @@ NSInteger comparePlayersRoundsWon(id obj1, id obj2, void *context)
 @synthesize roundType;
 
 @synthesize theGame;
+@synthesize theGameCopy;
 
 @synthesize singlePlayerHuman;
 @synthesize singlePlayerRounds, bonusLevelRounds;
@@ -1000,38 +1001,12 @@ NSInteger comparePlayersRoundsWon(id obj1, id obj2, void *context)
 
 - (void)startMultiPlayerRound
 {
-	//		glGenTextures(1, &textureBackground);
-	//		glBindTexture(GL_TEXTURE_2D, textureBackground);
-/*
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_FALSE);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	
-	pvrTexture = [PVRTexture pvrTextureWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"arena1" ofType:@"pvr"]];
-	[pvrTexture retain];
-	if (pvrTexture == nil)
-		NSLog(@"Failed to load pvr");
-	else
-		textureBackground = [pvrTexture name];
-*/	
-	/*
-	 NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"arena1" ofType:@"pvr"]];
-	 texImage2DPVRTC(0, 4, YES, 512, 512, [data bytes]);
-	 */		
 	[self startSelecting];
 
 	[doneButton setAlpha:0];
 	
 	unloadTexture(&textureBackground);
 	loadPVRTexture([backgroundFiles objectAtIndex:random()%(int)[backgroundFiles count]], &textureBackground);
-//	loadTexture([backgroundFiles objectAtIndex:random()%[backgroundFiles count]], &textureBackground);
-	
-	//[self resetLifeBars];
-	
-	//if ([theGame round] <= 5)
-	//	[theGame setRound:5];
 	
 	[self resetObjects];
 	
@@ -1799,6 +1774,9 @@ NSInteger comparePlayersRoundsWon(id obj1, id obj2, void *context)
 
 - (void)botTouched:(Bot *)bot
 {
+//	NSLog(@"bot touched: %x", bot);
+//	NSLog(@"z: %f", [bot z]);
+
 	if ([theGame gameMode] == GAME_MODE_SELECT 
 		&& !selecting && !animating 
 		&& [bot player] == currentPlayer
@@ -2072,6 +2050,21 @@ NSInteger comparePlayersRoundsWon(id obj1, id obj2, void *context)
 		[self moveSelectorToBot2];
 }
 
+- (void)addBotConfigurationsToArray:(NSMutableArray *)arr
+{
+    [arr removeAllObjects];
+    for (Bot *b in [[[theGame players] objectAtIndex:0] bots])
+    {
+        id theJammer = nil;
+        for (Attack *a in [b attackTypes])
+            if ([a attackType] == ATTACK_TYPE_JAMMER)
+                theJammer = a;
+        ConfigurationObject *cfgObject = [[ConfigurationObject alloc] initWithX:[b x] Y:[b y] Z:[b z] MT:[b currentMovement] BT:[b type] CT:[b cost] SH:([b shields] > 0) JA:(theJammer!=nil)];
+        [arr addObject:cfgObject];
+    }
+
+}
+
 - (void)doneSelecting
 {
 	if (hasSelectedDoneOrQuit)
@@ -2079,63 +2072,39 @@ NSInteger comparePlayersRoundsWon(id obj1, id obj2, void *context)
 	
 	if (selecting)
 		return;
-
+   
+    /*if (theGameCopy)
+        [theGameCopy release];
+    theGameCopy = [theGame copyWithZone:nil];*/
+    
+    if ([theGame gameType] == GAME_TYPE_SINGLEPLAYER || [theGame gameType] == GAME_TYPE_BONUS_LEVEL)
+    {
+        hasSelectedDoneOrQuit = true;
+        playSound(clickSound);
+        [playerName setText:@""];
+        countdown = 3;
+        currentPlayer = -1;
+        levelAttempts++;
+        totalLevelAttempts++;
+        stopSoundLoop(preBattleSound);
+        playSound(countdownSound);
+        [self showCountdownView];
+        [self hideStatusBar];
+    }
+    
 	[doneButton setAlpha:0];
 	
 	if ([theGame gameType] == GAME_TYPE_SINGLEPLAYER)
 	{
 		[self hideTutorial];
 	
-		playSound(clickSound);
-		[playerName setText:@""];
-		countdown = 3;
-		currentPlayer = -1;
-		levelAttempts++;
-		totalLevelAttempts++;
-		stopSoundLoop(preBattleSound);
-		playSound(countdownSound);
-		[self showCountdownView];
-		[self hideStatusBar];
-		hasSelectedDoneOrQuit = true;
-
-		[[singlePlayerRounds configuration] removeAllObjects];
-		for (Bot *b in [[[theGame players] objectAtIndex:0] bots])
-		{
-			id theJammer = nil;
-			for (Attack *a in [b attackTypes])
-				if ([a attackType] == ATTACK_TYPE_JAMMER)
-					theJammer = a;
-			ConfigurationObject *cfgObject = [[ConfigurationObject alloc] initWithX:[b x] Y:[b y] Z:[b z] MT:[b currentMovement] BT:[b type] CT:[b cost] SH:([b shields] > 0) JA:(theJammer!=nil)];
-			[[singlePlayerRounds configuration] addObject:cfgObject];
-		}
+		[self addBotConfigurationsToArray:[singlePlayerRounds configuration]];
 	}
 	else if ([theGame gameType] == GAME_TYPE_BONUS_LEVEL)
 	{
-		playSound(clickSound);
-		[playerName setText:@""];
-		countdown = 3;
-		currentPlayer = -1;
-		levelAttempts++;
-		totalLevelAttempts++;
-		stopSoundLoop(preBattleSound);
-		playSound(countdownSound);
-		[self showCountdownView];
-		[self hideStatusBar];
-		hasSelectedDoneOrQuit = true;
-		
-		[[bonusLevelRounds configuration] removeAllObjects];
-
-		for (Bot *b in [[[theGame players] objectAtIndex:0] bots])
-		{
-			id theJammer = nil;
-			for (Attack *a in [b attackTypes])
-				if ([a attackType] == ATTACK_TYPE_JAMMER)
-					theJammer = a;
-			ConfigurationObject *cfgObject = [[ConfigurationObject alloc] initWithX:[b x] Y:[b y] Z:[b z] MT:[b currentMovement] BT:[b type] CT:[b cost] SH:([b shields] > 0) JA:(theJammer!=nil)];
-			[[bonusLevelRounds configuration] addObject:cfgObject];
-		}
+        [self addBotConfigurationsToArray:[bonusLevelRounds configuration]];
 	}
-	else
+    else if ([theGame gameType] == GAME_TYPE_MULTIPLAYER)
 	{
 		if (currentPlayer == ([[theGame players] count]-1))
 		{

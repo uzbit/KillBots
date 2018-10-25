@@ -54,9 +54,13 @@
 	MainMenuViewController *mainMenuViewController;
 
 	Game *theGame;
+    Game *theGameCopy;
 
 	//determines if we are in demo mode or not
 	bool demo;
+    
+    //should just run a replay of the previous game
+    bool replay;
 	
 	//storage for single player
 	Player *singlePlayerHuman;
@@ -115,6 +119,7 @@
 @property ATOMICITY_NONE RoundType roundType;
 
 @property ATOMICITY_RETAIN Game *theGame;
+@property ATOMICITY_RETAIN Game *theGameCopy;
 
 @property ATOMICITY_RETAIN Player *singlePlayerHuman;
 @property ATOMICITY_RETAIN SinglePlayerRounds *singlePlayerRounds;

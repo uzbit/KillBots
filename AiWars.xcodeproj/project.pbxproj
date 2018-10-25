@@ -11,7 +11,6 @@
 		0609819B11CAF15C004D1B48 /* SinglePlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 061DDC190FBBC6B6004F49B8 /* SinglePlayer.xib */; };
 		0609819C11CAF165004D1B48 /* Unlocked.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27E26331105A01E100DA2047 /* Unlocked.xib */; };
 		060981AB11CAF213004D1B48 /* BonusLevelsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 271F9D7110A000A1008DC1B6 /* BonusLevelsViewController.m */; };
-		060981AC11CAF21D004D1B48 /* MyStoreObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 271F9E0D10A940D6008DC1B6 /* MyStoreObserver.m */; };
 		060981AE11CAF230004D1B48 /* UnlockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E2630A1059FDEE00DA2047 /* UnlockedViewController.m */; };
 		060981AF11CAF24E004D1B48 /* BonusLevelRounds.m in Sources */ = {isa = PBXBuildFile; fileRef = 271F9F3C10B2688D008DC1B6 /* BonusLevelRounds.m */; };
 		060981B111CAF275004D1B48 /* SoundEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 279CE2521038EF940057B2E7 /* SoundEffect.m */; };
@@ -42,6 +41,8 @@
 		062DAF9A11EEB2BA008FCC26 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 062DAF8C11EEB2BA008FCC26 /* OpenGLES.framework */; };
 		062DAF9B11EEB2BA008FCC26 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 062DAF8D11EEB2BA008FCC26 /* QuartzCore.framework */; };
 		062DAF9C11EEB2BA008FCC26 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 062DAF8E11EEB2BA008FCC26 /* UIKit.framework */; };
+		065791642181B8400043B036 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 279D3FDC11EECE370018F4F8 /* StoreKit.framework */; };
+		065791652181B89C0043B036 /* MyStoreObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 271F9E0D10A940D6008DC1B6 /* MyStoreObserver.m */; };
 		0664F9860FF87EAA0031699B /* default_weapon_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0664F9850FF87EA90031699B /* default_weapon_sound.wav */; };
 		0664F9870FF87EAA0031699B /* default_weapon_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0664F9850FF87EA90031699B /* default_weapon_sound.wav */; };
 		0664FB2E0FF9E6BC0031699B /* SinglePlayerIntro.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0664FB2D0FF9E6BC0031699B /* SinglePlayerIntro.xib */; };
@@ -744,6 +745,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				065791642181B8400043B036 /* StoreKit.framework in Frameworks */,
 				062DAF8F11EEB2BA008FCC26 /* AudioToolbox.framework in Frameworks */,
 				062DAF9011EEB2BA008FCC26 /* AVFoundation.framework in Frameworks */,
 				062DAF9111EEB2BA008FCC26 /* CoreGraphics.framework in Frameworks */,
@@ -1274,7 +1276,7 @@
 			);
 			includeInIndex = 1;
 			name = Frameworks;
-			path = /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.sdk/System/Library/Frameworks;
+			path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/../../../../../../../../../Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.sdk/System/Library/Frameworks;
 			sourceTree = "<absolute>";
 		};
 /* End PBXGroup section */
@@ -1645,6 +1647,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				065791652181B89C0043B036 /* MyStoreObserver.m in Sources */,
 				0668948D0F9CE55F00FAE698 /* main.m in Sources */,
 				066894A30F9CE63700FAE698 /* SimulationAppDelegate.m in Sources */,
 				066894AD0F9CE7AD00FAE698 /* SimulationObject.m in Sources */,
@@ -1682,7 +1685,6 @@
 				06ACA99B1026A9A100242CC4 /* SinglePlayerWonViewController.m in Sources */,
 				06CEDC1E106BA7E20091BAA0 /* SlySwitch.m in Sources */,
 				060981AB11CAF213004D1B48 /* BonusLevelsViewController.m in Sources */,
-				060981AC11CAF21D004D1B48 /* MyStoreObserver.m in Sources */,
 				060981AE11CAF230004D1B48 /* UnlockedViewController.m in Sources */,
 				060981AF11CAF24E004D1B48 /* BonusLevelRounds.m in Sources */,
 				060981B111CAF275004D1B48 /* SoundEffect.m in Sources */,
@@ -1749,23 +1751,20 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/System/Library/Frameworks\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
 				INFOPLIST_FILE = "Simulation-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					UIKit,
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slyco.aiwars.simulation;
 				PRODUCT_NAME = Simulation;
@@ -1781,22 +1780,19 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/System/Library/Frameworks\"",
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
 				INFOPLIST_FILE = "Simulation-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					UIKit,
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slyco.aiwars.simulation;
 				PRODUCT_NAME = Simulation;
@@ -1928,22 +1924,19 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/System/Library/Frameworks\"",
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
 				INFOPLIST_FILE = "Simulation-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					UIKit,
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slyco.aiwars.simulation;
 				PRODUCT_NAME = Simulation;
@@ -2025,22 +2018,19 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.2.sdk/System/Library/Frameworks\"",
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
 				INFOPLIST_FILE = "Simulation-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					UIKit,
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slyco.aiwars.simulation;
 				PRODUCT_NAME = Simulation;

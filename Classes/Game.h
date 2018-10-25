@@ -37,4 +37,6 @@
 //controller
 @property ATOMICITY_ASSIGN AiWarsViewController *controller;
 
+- (id)copyWithZone:(NSZone*)zone;
+
 @end

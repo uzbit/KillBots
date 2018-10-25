@@ -37,11 +37,8 @@
 	
 	//prevent the phone from turning off
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
-	
-	//create a store observer for in-app purchases
-	storeObserver = [[MyStoreObserver alloc] init];
-	[[SKPaymentQueue defaultQueue] addTransactionObserver:storeObserver];
 
+    
 	//initialize the sounds
 	loadSounds();
 	
@@ -56,8 +53,11 @@
     [window setRootViewController:mainMenuViewController];
 	//[mainMenuViewController.view setAlpha:0];
 	
+    //create a store observer for in-app purchases
+    storeObserver = [[MyStoreObserver alloc] init];
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:storeObserver];
 	[storeObserver setMainMenuViewController:mainMenuViewController];
-	
+
 	//show the window
     [window makeKeyAndVisible];
     [application setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];

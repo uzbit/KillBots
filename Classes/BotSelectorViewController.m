@@ -583,10 +583,10 @@
 							   cost:3000
 							   tier:1
 							attacks:suicide2Attacks
-					  scaleMovement:7.0
+					  scaleMovement:6.0
 						 scaleEvade:0.0
 						scaleToward:0.0];
-        [bot setMass:0.6];
+        [bot setMass:0.3];
         [self registerBot:bot];
 		[attack release];
 		[bot release];
@@ -1139,6 +1139,12 @@
 
 }
 
+- (int)calculateCostForBot:(Bot *)bot
+{
+    return [bot cost]
+    + ([shieldsSwitch isOn]?[self shieldsCostForBot:bot orWithIndex:-1]:0)
+    + ([jammerSwitch isOn]?[self jammerCostForBot:bot orWithIndex:-1]:0);
+}
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1212,8 +1218,8 @@
 	label = (UILabel *)[cell viewWithTag:222];
 	[label setText:[bot name]];
 	
-	int nextCost = [bot cost] + ([shieldsSwitch isOn]?[self shieldsCostForBot:bot orWithIndex:-1]:0) + ([jammerSwitch isOn]?[self jammerCostForBot:bot orWithIndex:-1]:0);
-	int currentCost = [selectedBot cost] + ([shieldsSwitch isOn]?[self shieldsCostForBot:selectedBot orWithIndex:-1]:0) + ([jammerSwitch isOn]?[self jammerCostForBot:selectedBot orWithIndex:-1]:0);
+    int nextCost = [self calculateCostForBot:bot];
+	int currentCost = [self calculateCostForBot:selectedBot];
 	
 	if ([player funds] + currentCost - nextCost < 0)
 		[label setTextColor:[UIColor colorWithRed:.2 green:.2 blue:.2 alpha:1]];
@@ -1247,9 +1253,9 @@
 		count += [mesaVista numberOfRowsInSection:i];
 	Bot *bot = [[botTypes objectAtIndex:count+indexPath.row] copy];
 
-	int nextCost = [bot cost] + ([shieldsSwitch isOn]?[self shieldsCostForBot:bot orWithIndex:-1]:0) + ([jammerSwitch isOn]?[self jammerCostForBot:bot orWithIndex:-1]:0);
-	int currentCost = [selectedBot cost] + ([shieldsSwitch isOn]?[self shieldsCostForBot:selectedBot orWithIndex:-1]:0) + ([jammerSwitch isOn]?[self jammerCostForBot:selectedBot orWithIndex:-1]:0);
-	
+    int nextCost = [self calculateCostForBot:bot];
+    int currentCost = [self calculateCostForBot:selectedBot];
+    
 	if ([player funds] + currentCost - nextCost < 0)
 		return;
 	
@@ -1266,16 +1272,6 @@
 	//store a temp copy of the selectedBot then copy the new bot data over
 	[aiWarsViewController copyBot:selectedBot fromBot:bot];
 	
-	/*Bot *tmpBot = [selectedBot copy];
-	memcpy(selectedBot, bot, sizeof(Bot));
-	[selectedBot setX:[tmpBot x]];
-	[selectedBot setY:[tmpBot y]];
-	[selectedBot setZ:[tmpBot z]];
-	[selectedBot setColor:[tmpBot color]];
-	[selectedBot setBaseTexture:[tmpBot baseTexture]];
-	[selectedBot setPlayer:[tmpBot player]];
-	[selectedBot setComputer:[tmpBot computer]];
-	[selectedBot setController:[tmpBot controller]];*/
 	if ([jammerSwitch isOn])
 	{
 		Attack *jammer = [[Attack alloc] initWithType:ATTACK_TYPE_JAMMER Weapon:[[JammerWeapon alloc] initWithTexture:textureJammerWeapon] Rate:JAMMER_ATTACK_RATE];
