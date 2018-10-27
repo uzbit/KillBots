@@ -20,6 +20,7 @@
 	IBOutlet UILabel *position1BotsDestroyed, *position2BotsDestroyed, *position3BotsDestroyed, *position4BotsDestroyed;
 	IBOutlet UIImageView *position1Icon, *position2Icon, *position3Icon, *position4Icon;
 	IBOutlet UIButton *nextRoundButton;
+    IBOutlet UIButton *replayButton;
 
 	AiWarsViewController *aiWarsViewController;
 }
@@ -31,8 +32,10 @@
 @property ATOMICITY_RETAIN UILabel *position1BotsDestroyed, *position2BotsDestroyed, *position3BotsDestroyed, *position4BotsDestroyed;
 @property ATOMICITY_RETAIN UIImageView *position1Icon, *position2Icon, *position3Icon, *position4Icon;
 @property ATOMICITY_RETAIN UIButton *nextRoundButton;
+@property ATOMICITY_RETAIN UIButton *replayButton;
 @property ATOMICITY_ASSIGN AiWarsViewController *aiWarsViewController;
 
 - (IBAction)nextRound:(id)sender;
+- (IBAction)replay:(id)sender;
 
 @end

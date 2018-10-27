@@ -59,9 +59,6 @@
 	//determines if we are in demo mode or not
 	bool demo;
     
-    //should just run a replay of the previous game
-    bool replay;
-	
 	//storage for single player
 	Player *singlePlayerHuman;
 	SinglePlayerRounds *singlePlayerRounds;
@@ -172,6 +169,7 @@
 - (void)playerWon:(int)p;
 - (void)tieWithPlayers:(int)p1 andP2:(int)p2;
 - (void)nextRound;
+- (void)replay;
 - (void)showPlayerWon;
 - (void)hidePlayerWon;
 - (void)showButtons;

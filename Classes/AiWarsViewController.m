@@ -1246,7 +1246,6 @@ NSInteger comparePlayersRoundsWon(id obj1, id obj2, void *context)
 
 	stopAllSounds();
 
-//	[self removeUpdateableObject:theGame];
 	[[self theGame] setGameMode:GAME_MODE_BATTLE_FINISHED];
 
 	Player *player = [[theGame players] objectAtIndex:p];
@@ -1369,7 +1368,6 @@ NSInteger comparePlayersRoundsWon(id obj1, id obj2, void *context)
 		[theGame setRound:[theGame round]+1];
 		for (Player *p in [theGame players])
 			[p setFunds:[self fundsForMultiRound]+[p funds]];
-		
 		[self displayPlayerList];
 	}
 
@@ -1472,6 +1470,12 @@ NSInteger comparePlayersRoundsWon(id obj1, id obj2, void *context)
 	else if ([theGame gameType] == GAME_TYPE_MULTIPLAYER)
 		[self startMultiPlayerRound];
 }
+
+- (void)replay
+{
+    NSLog(@"replay");
+}
+
 
 - (void)showPlayerWon
 {
@@ -2072,10 +2076,6 @@ NSInteger comparePlayersRoundsWon(id obj1, id obj2, void *context)
 	
 	if (selecting)
 		return;
-   
-    /*if (theGameCopy)
-        [theGameCopy release];
-    theGameCopy = [theGame copyWithZone:nil];*/
     
     if ([theGame gameType] == GAME_TYPE_SINGLEPLAYER || [theGame gameType] == GAME_TYPE_BONUS_LEVEL)
     {
@@ -2116,7 +2116,6 @@ NSInteger comparePlayersRoundsWon(id obj1, id obj2, void *context)
 			playSound(countdownSound);
 			[self showCountdownView];
 			[self hideStatusBar];
-			//[self showLifeBars];
 		}
 		else
 		{
@@ -2139,7 +2138,7 @@ NSInteger comparePlayersRoundsWon(id obj1, id obj2, void *context)
 
 - (void)startBattle
 {
-	[theGame setGameMode:GAME_MODE_BATTLE];		
+	[theGame setGameMode:GAME_MODE_BATTLE];
 }
 
 - (void)showCountdownView

@@ -18,6 +18,7 @@
 @synthesize position1BotsDestroyed, position2BotsDestroyed, position3BotsDestroyed, position4BotsDestroyed;
 @synthesize position1Icon, position2Icon, position3Icon, position4Icon;
 @synthesize nextRoundButton;
+@synthesize replayButton;
 @synthesize aiWarsViewController;
 
 - (IBAction)nextRound:(id)sender
@@ -25,6 +26,13 @@
 	playSound(clickSound);
 
 	[aiWarsViewController nextRound];
+}
+
+- (IBAction)replay:(id)sender
+{
+    playSound(clickSound);
+    
+    [aiWarsViewController replay];
 }
 
 /*
